@@ -6,7 +6,7 @@ export class fileSystemDatasource implements LogDatasource {
   private readonly logPath = 'logs/';
   private readonly allLogsPath = 'logs/logs-all.log';
   private readonly meiumLogsPath = 'logs/logs-medium.log';
-  private readonly highLogsPath = 'logs/logs-high-log';
+  private readonly highLogsPath = 'logs/logs-high.log';
 
   constructor() {
     this.createLogsFiles();
@@ -38,6 +38,7 @@ export class fileSystemDatasource implements LogDatasource {
 
     private getLogsFiles =(path:string):LogEntity[]=>{
         const content = fs.readFileSync(path, 'utf-8');
+        if(content ==='') return []
         const logs = content.split('\n').map(LogEntity.fromJson);
         return logs;
     }
